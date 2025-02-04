@@ -79,3 +79,42 @@ The project follows a modular approach inspired by **Domain-Driven Design (DDD)*
    - Middleware centralizes exception management, adhering to **fail-fast** and **single responsibility** principles.
 
 ---
+
+### 🛠️ Usage of Technologies
+
+### Backend
+- **.NET 8.0**: Core framework for building RESTful APIs and executing business logic across all layers.
+- **C#**: Primary programming language for implementing application logic.
+
+### Frameworks
+- **Mediator (MediatR)**:  
+  - Centralizes request handling by decoupling controllers and domain logic.  
+  - Example: `LoginUserCommand` is sent by `AuthController` and processed by `LoginUserHandler`.
+
+- **Automapper**:  
+  - Maps `Cart` domain entities to `CartDto` in handlers and controllers to ensure API responses are formatted for external clients.
+
+- **Rebus**:  
+  A lean service bus implementation for .NET. Used to implement event-driven design for publishing events like `SaleCreated`, `SaleModified`, `SaleCancelled`, and `ItemCancelled`.  
+
+### Testing
+- **xUnit**:  
+  - Tests application handlers to validate the flow of business logic, such as checking the successful creation of a cart in `CreateCartCommandTests`.
+  - Ensures domain rules, such as validating `Sale` aggregates, behave correctly.
+
+- **NSubstitute**:  
+  - Mocks repositories and services to isolate specific functionalities, like testing the `LoginUserHandler` without relying on a real database.
+
+- **Faker**:  
+  - Generates fake data for entities like users and products during unit tests, ensuring diverse test cases (e.g., `Faker` creates test users for `UserTests`).
+
+### Database
+- **PostgreSQL**:  
+  - Stores relational data, such as users and product inventories, accessed using EF Core (e.g., `UserRepository` retrieves user data).
+  - Pagination and filtering are applied directly through queries in `GetUsersQuery`.
+
+### Error Handling
+- **ErrorHandlingMiddleware**:  
+  - Catches exceptions in the API pipeline, such as `UnauthorizedAccessException` in `LoginUserCommand`, and returns appropriate HTTP status codes (e.g., `401 Unauthorized`).
+
+---
