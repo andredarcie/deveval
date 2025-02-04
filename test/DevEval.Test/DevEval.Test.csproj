@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DevEval.Application\DevEval.Application.csproj" />
-    <ProjectReference Include="..\DevEval.Domain\DevEval.Domain.csproj" />
+    <ProjectReference Include="..\..\src\DevEval.Application\DevEval.Application.csproj" />
+    <ProjectReference Include="..\..\src\DevEval.Domain\DevEval.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
