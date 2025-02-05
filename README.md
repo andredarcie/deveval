@@ -2,7 +2,12 @@
 
 ![Build Status](https://github.com/andredarcie/deveval/actions/workflows/dotnet.yml/badge.svg)
 
-DevEval is a robust application for system evaluation and management, designed using a clean, modular, and scalable architecture. This project organizes its logic into well-defined layers, making it easier to maintain, test, and extend.
+DevEval is a robust application for system evaluation and management, designed using a clean, 
+modular, and scalable architecture. 
+The project follows Domain-Driven Design (**DDD**), 
+implements the Command Query Responsibility Segregation (**CQRS**) pattern, 
+and adheres to **SOLID** principles. It organizes its logic into well-defined layers, 
+making it easier to maintain, test, and extend.
 
 ---
 
