@@ -68,6 +68,40 @@ After checkout, your cart will be finalized and turned into a **purchase**. 🎉
 
 You have completed the **basic application flow**. Now, feel free to explore the **other endpoints, features, and business rules** that have been implemented.
 
+## 🧪 Run the Tests
+
+### Overview
+
+The project includes a variety of automated tests to ensure the quality, reliability, and correctness of the application. The tests cover multiple layers of the system, including:
+
+- *Application Layer*: Tests for handlers and AutoMapper profiles to verify the proper functioning of commands, queries, and mapping configurations.
+- *Domain Layer*: Focuses on business logic validation for entities and value objects, ensuring domain rules are implemented correctly.
+- *Entity Tests*: Validates the behavior of core domain entities such as carts, products, and sales.
+- *Value Object Tests*: Ensures immutability and correctness of value objects like addresses, ratings, and geolocations.
+
+To ensure the application works as expected, you can run the automated tests. Follow these steps:
+
+### 1️⃣ Navigate to the Test Project
+
+Go to the test directory:
+
+```console
+cd test/DevEval.Test
+```
+
+### 2️⃣ Execute the Tests
+
+Run the tests using the following command:
+
+```console
+dotnet test
+```
+
+### ✅ Done!
+
+By running the tests, you ensure the application's quality and reliability. 
+If any test fails, review the related code and make the necessary corrections. 🎉
+
 ## 📂 Project Structure
 
 The project follows a modular approach inspired by **Domain-Driven Design (DDD)** principles, divided into several layers:
