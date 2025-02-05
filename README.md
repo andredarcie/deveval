@@ -1,5 +1,8 @@
 # DevEval Project
 
+![Build Status](https://github.com/andredarcie/deveval/actions/workflows/dotnet.yml/badge.svg) ![Tests Passing](https://github.com/andredarcie/deveval/actions/workflows/dotnet.yml/badge.svg?branch=main&event=push)
+
+
 DevEval is a robust application for system evaluation and management, designed using a clean, modular, and scalable architecture. This project organizes its logic into well-defined layers, making it easier to maintain, test, and extend.
 
 ---
