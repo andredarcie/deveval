@@ -79,7 +79,7 @@ namespace DevEval.Tests.ValueObjects
             var result = rating.ToString();
 
             // Assert
-            Assert.Equal("4,5 (10 votes)", result);
+            Assert.Equal("4.5 (10 votes)", result);
         }
 
         [Fact]

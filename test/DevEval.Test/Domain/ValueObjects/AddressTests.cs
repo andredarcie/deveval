@@ -80,7 +80,7 @@ namespace DevEval.Tests.ValueObjects
             var result = address.ToString();
 
             // Assert
-            Assert.Equal("Sample Street, 123, Sample City - 12345-678 (Geolocation: 12,34, 56,78)", result);
+            Assert.Equal("Sample Street, 123, Sample City - 12345-678 (Geolocation: 12.34, 56.78)", result);
         }
 
         [Fact]

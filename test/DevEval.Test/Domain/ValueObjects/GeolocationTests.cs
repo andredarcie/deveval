@@ -59,7 +59,7 @@ namespace DevEval.Tests.ValueObjects
             var result = geolocation.ToString();
 
             // Assert
-            Assert.Equal("Latitude: 12,34, Longitude: 56,78", result);
+            Assert.Equal("Latitude: 12.34, Longitude: 56.78", result);
         }
 
         [Fact]
