@@ -50,7 +50,7 @@ namespace DevEval.WebApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "API com JWT", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Dev Eval", Version = "v1" });
 
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -59,7 +59,7 @@ namespace DevEval.WebApi
                     Scheme = "Bearer",
                     BearerFormat = "JWT",
                     In = ParameterLocation.Header,
-                    Description = "Insira o token JWT no formato: Bearer {token}"
+                    Description = "Bearer {token}"
                 });
 
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement
