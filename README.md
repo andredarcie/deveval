@@ -154,7 +154,7 @@ The project follows a modular approach inspired by **Domain-Driven Design (DDD)*
   - Maps `Cart` domain entities to `CartDto` in handlers and controllers to ensure API responses are formatted for external clients.
 
 - **Rebus**:  
-  A lean service bus implementation for .NET. Used to implement event-driven design for publishing events like `SaleCreated`, `SaleModified`, `SaleCancelled`, and `ItemCancelled`.  
+  - A lean service bus implementation for .NET. Used to implement event-driven design for publishing events like `SaleCreated`, `SaleModified`, `SaleCancelled`, and `ItemCancelled`.  
 
 ### Testing
 - **xUnit**:  
