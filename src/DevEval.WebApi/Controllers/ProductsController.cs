@@ -35,9 +35,18 @@ namespace DevEval.API.Controllers
         /// <response code="200">Returns the paginated list of products.</response>
         [HttpGet]
         [ProducesResponseType(typeof(PaginatedResult<ProductDto>), 200)]
-        public async Task<ActionResult<PaginatedResult<ProductDto>>> GetProducts([FromQuery] PaginationParameters parameters)
+        public async Task<ActionResult<PaginatedResult<ProductDto>>> GetProducts(
+            [FromQuery] int _page = 1,
+            [FromQuery] int _size = 10,
+            [FromQuery] string _order = "")
         {
-            var query = new GetProductsQuery(parameters);
+            var query = new GetProductsQuery(new PaginationParameters
+            {
+                Page = _page,
+                PageSize = _size,
+                OrderBy = _order
+            });
+
             var result = await _mediator.Send(query);
             return Ok(result);
         }
