@@ -2,10 +2,27 @@
 
 ![Build Status](https://github.com/andredarcie/deveval/actions/workflows/dotnet.yml/badge.svg)
 
-
 DevEval is a robust application for system evaluation and management, designed using a clean, modular, and scalable architecture. This project organizes its logic into well-defined layers, making it easier to maintain, test, and extend.
 
 ---
+
+## ▶️ How to Run
+
+Run the database in any way you prefer, then configure appsettings.Development.json with the credentials. For example, using a Docker container:
+
+docker run -d --name dev_eval_db --restart always -e POSTGRES_DB=DevEvalDb -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=yourpassword -p 5432:5432 -v postgres_data:/var/lib/postgresql/data postgres:15
+
+Run the project normally with:
+
+dotnet run
+
+It will automatically open the Swagger homepage, displaying the API documentation. Call the endpoint api/auth/login. When running the project, migrations are executed, the database structure is created, and an admin user is automatically set up. The API already has default values for nickname and password. Just make a POST request and retrieve the JWT.
+
+Create a new product, get its ID, and create a new shopping cart using the newly created product ID. After creating the cart, perform the checkout:
+
+/api/carts/{id}/checkout
+
+This will finalize the cart and turn it into a newly created purchase.
 
 ## 📂 Project Structure
 
