@@ -6,23 +6,62 @@ DevEval is a robust application for system evaluation and management, designed u
 
 ---
 
-## ▶️ How to Run
+## ▶️ Getting Started
 
-Run the database in any way you prefer, then configure appsettings.Development.json with the credentials. For example, using a Docker container:
+Setting up and running the project is simple. Just follow these steps.
 
+### 1️⃣ Start the Database
+
+First, run your database. You can do this in any way you prefer, but if you want a quick setup, you can use a **Docker container**:
+
+```console
 docker run -d --name dev_eval_db --restart always -e POSTGRES_DB=DevEvalDb -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=yourpassword -p 5432:5432 -v postgres_data:/var/lib/postgresql/data postgres:15
+```
 
-Run the project normally with:
+Make sure to update yourpassword with a secure password.
 
+### 2️⃣ Run the Project
+
+Once the database is up and running, start the project with:
+
+```console
 dotnet run
+```
 
-It will automatically open the Swagger homepage, displaying the API documentation. Call the endpoint api/auth/login. When running the project, migrations are executed, the database structure is created, and an admin user is automatically set up. The API already has default values for nickname and password. Just make a POST request and retrieve the JWT.
+This will automatically open **Swagger**, where you can explore the API documentation.
 
-Create a new product, get its ID, and create a new shopping cart using the newly created product ID. After creating the cart, perform the checkout:
+### 3️⃣ Authenticate
 
+To get started with the API, make a POST request to:
+
+```console
+curl -X 'POST' \
+  'http://localhost:5181/api/auth/login' \
+  -H 'accept: text/plain' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "username": "admin",
+  "password": "Admin@123"
+}'
+```
+
+When the project runs, migrations are automatically applied, the database structure is created, and an admin user is set up. The API has default credentials (nickname and password), so you just need to authenticate and retrieve the JWT token.
+
+### 4️⃣ Create a Product and a Shopping Cart
+
+1. Create a new product and get its ID.
+2. Create a shopping cart using the newly created product ID.
+3. Once the cart is created, perform the checkout:
+
+```console
 /api/carts/{id}/checkout
+```
 
-This will finalize the cart and turn it into a newly created purchase.
+### ✅ Done!
+
+After checkout, your cart will be finalized and turned into a **purchase**. 🎉  
+
+You have completed the **basic application flow**. Now, feel free to explore the **other endpoints, features, and business rules** that have been implemented.
 
 ## 📂 Project Structure
 
@@ -138,3 +177,25 @@ The project follows a modular approach inspired by **Domain-Driven Design (DDD)*
   - Catches exceptions in the API pipeline, such as `UnauthorizedAccessException` in `LoginUserCommand`, and returns appropriate HTTP status codes (e.g., `401 Unauthorized`).
 
 ---
+
+## 📜 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Follow these steps to contribute:
+
+1. **Fork the repository**.
+2. **Create a new branch** (`git checkout -b feature-branch`).
+3. **Commit your changes** (`git commit -m "Add new feature"`).
+4. **Push to the branch** (`git push origin feature-branch`).
+5. **Submit a pull request**.
+
+---
+
+## 📬 Contact
+
+For questions or issues, feel free to open an **issue** or contact [@andredarcie](https://github.com/andredarcie).
