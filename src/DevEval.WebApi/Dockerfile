@@ -1,30 +1,40 @@
-# Acesse https://aka.ms/customizecontainer para saber como personalizar seu contêiner de depuração e como o Visual Studio usa este Dockerfile para criar suas imagens para uma depuração mais rápida.
-
-# Esta fase é usada durante a execução no VS no modo rápido (Padrão para a configuração de Depuração)
+# Etapa base para rodar a aplicação
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
-
-# Esta fase é usada para compilar o projeto de serviço
+# Etapa de build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
-WORKDIR /src
-COPY ["DevEval.WebApi/DevEval.WebApi.csproj", "DevEval.WebApi/"]
-RUN dotnet restore "./DevEval.WebApi/DevEval.WebApi.csproj"
-COPY . .
-WORKDIR "/src/DevEval.WebApi"
-RUN dotnet build "./DevEval.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR /workspace
 
-# Esta fase é usada para publicar o projeto de serviço a ser copiado para a fase final
+# Copia apenas os arquivos .csproj para restaurar dependências primeiro
+COPY ["src/DevEval.WebApi/DevEval.WebApi.csproj", "src/DevEval.WebApi/"]
+COPY ["src/DevEval.Application/DevEval.Application.csproj", "src/DevEval.Application/"]
+COPY ["src/DevEval.Common/DevEval.Common.csproj", "src/DevEval.Common/"]
+COPY ["src/DevEval.Domain/DevEval.Domain.csproj", "src/DevEval.Domain/"]
+COPY ["src/DevEval.IoC/DevEval.IoC.csproj", "src/DevEval.IoC/"]
+COPY ["src/DevEval.ORM/DevEval.ORM.csproj", "src/DevEval.ORM/"]
+
+# Executa o restore de dependências
+RUN dotnet restore "src/DevEval.WebApi/DevEval.WebApi.csproj"
+
+# Copia todo o código-fonte agora que as dependências foram restauradas
+COPY src/ src/
+
+# Define o diretório correto para compilar
+WORKDIR "/workspace/src/DevEval.WebApi"
+RUN dotnet build "DevEval.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# Etapa de publicação
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./DevEval.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "DevEval.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-# Esta fase é usada na produção ou quando executada no VS no modo normal (padrão quando não está usando a configuração de Depuração)
+# Etapa final para rodar a aplicação
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
 ENTRYPOINT ["dotnet", "DevEval.WebApi.dll"]
